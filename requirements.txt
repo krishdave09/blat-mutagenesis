@@ -1,0 +1,17 @@
+# Beta-Lactam ML v2 — sequence-only benchmark (CPU-only ML baseline).
+# pip fallback for `setup.sh` when conda is unavailable. Pinned to tested versions.
+# The PLM-scoring phase uses two SEPARATE envs, not listed here (see README.md ->
+# "PLM scoring environments"): `esm` (ESM-2 650M + ESM-1v, fair-esm + torch) and
+# `esmc` (ESM C 600M via the ESM SDK, transformers). Neither is pinned in this repo
+# yet -- reference specs live in ../Beta-Lactam ML Benchmark first draft/envs/.
+scikit-learn==1.9.0
+xgboost==3.2.0
+pandas==3.0.3
+numpy==2.4.6
+scipy==1.17.1
+pyarrow==25.0.0
+matplotlib==3.11.0
+seaborn==0.13.2
+joblib==1.5.3
+statsmodels==0.14.6
+jupyter

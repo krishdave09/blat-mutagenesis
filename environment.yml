@@ -1,0 +1,23 @@
+# Beta-Lactam ML v2 — sequence-only benchmark (CPU-only ML baseline env).
+# Reproducible create:  conda env create -f environment.yml
+# Pinned to the versions this benchmark was built and tested against.
+# NOTE: the PLM-scoring phase uses two SEPARATE envs, neither pinned in this repo yet
+# (see README.md -> "PLM scoring environments"): `esm` (ESM-2 650M + ESM-1v scoring,
+# ESMFold WT fold; fair-esm + torch) and `esmc` (ESM C 600M via the ESM SDK;
+# transformers). This env is the traditional-ML + evaluation stack only.
+name: betalactam-v2
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11.15
+  - scikit-learn=1.9.0
+  - xgboost=3.2.0
+  - pandas=3.0.3
+  - numpy=2.4.6
+  - scipy=1.17.1
+  - pyarrow=25.0.0
+  - matplotlib=3.11.0
+  - seaborn=0.13.2
+  - joblib=1.5.3
+  - statsmodels=0.14.6
+  - jupyter
