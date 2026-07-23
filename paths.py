@@ -49,7 +49,6 @@ MODELS    = BASE_DIR / "models"           # top-level: models are first-class ar
 RESULTS   = BASE_DIR / "results"
 FIGURES   = RESULTS / "figures"
 TABLES    = RESULTS / "tables"
-DOCS      = BASE_DIR / "docs"             # literature review, guides, and results write-ups
 
-for _d in (RAW, INTERIM, PROCESSED, FIGURES, MODELS, TABLES, DOCS):
+for _d in (RAW, INTERIM, PROCESSED, FIGURES, MODELS, TABLES):
     _d.mkdir(parents=True, exist_ok=True)
