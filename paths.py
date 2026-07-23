@@ -45,10 +45,14 @@ DATA      = BASE_DIR / "data"
 RAW       = DATA / "raw"                  # read-only, never edited by hand
 INTERIM   = DATA / "interim"              # cleaned / partially processed
 PROCESSED = DATA / "processed"            # model-ready
+FEATURES  = DATA / "features"             # extracted feature matrices, one subfolder per method
+FEATURES_PLM_MM   = FEATURES / "plm_masked_marginal"  # masked-marginal surprisal (Rep 1/3/4)
+FEATURES_PLM_EMB  = FEATURES / "plm_embeddings"        # mean-pooled / site / site-delta (Rep 2)
+FEATURES_ESMFOLD  = FEATURES / "esmfold_structure"     # ESMFold structural features
 MODELS    = BASE_DIR / "models"           # top-level: models are first-class artifacts
 RESULTS   = BASE_DIR / "results"
 FIGURES   = RESULTS / "figures"
 TABLES    = RESULTS / "tables"
 
-for _d in (RAW, INTERIM, PROCESSED, FIGURES, MODELS, TABLES):
+for _d in (RAW, INTERIM, PROCESSED, FEATURES_PLM_MM, FEATURES_PLM_EMB, FEATURES_ESMFOLD, FIGURES, MODELS, TABLES):
     _d.mkdir(parents=True, exist_ok=True)
