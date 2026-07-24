@@ -14,11 +14,14 @@ produced at these trimmed settings.
 `2 - Writing/build_08_report.py`.
 
 **Why it matters (two known costs of the trim):**
-1. **K=25 can clip low-variance-but-predictive directions.** The 07 EDA scree showed ESM-C and
-   ESM-2 3B do not reach 90% variance even within 100 PCs, and the best class-separating direction
-   (ESM-C 600M PC1, single-feature AUC 0.82) carried only ~3% of the variance — exactly the kind of
-   low-variance signal a tight PCA cutoff endangers. A 25-component projection may drop functional
-   signal the full 50-component run keeps.
+1. **K=25 discards a large share of variance — not "a little".** Per the 07 `pca_variance` table,
+   EVERY `delta_site` block (the primary D035 feature) needs **>100 PCs** to reach 90% variance, and
+   its top-10-PC variance is only ~20–48% (ESM-C as low as ~19–20%). So at K=25 each `delta_site`
+   block retains well under a quarter of its variance. Low-variance-but-predictive directions are
+   especially at risk: the best class-separating direction (ESM-C 600M PC1, single-feature AUC 0.82)
+   carried only ~3% of the variance. The trimmed run may **materially understate** the full-embedding
+   model, especially on the contiguous split. K=50 roughly doubles retained variance but still
+   under-covers — the intended range is 50–200 (D037), so treat trimmed numbers as a lower bound.
 2. **1000 bootstraps widen the CI noise floor.** Close model-vs-model or arm-vs-arm gaps on the
    contiguous split may fail to reach significance (DeLong/McNemar + bootstrap CIs) that the
    2000-resample run would have resolved.
