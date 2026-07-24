@@ -10,6 +10,9 @@ Raw data in data/raw/ is immutable; everything else is rebuilt by code.
 | `00_project_setup` | project scaffold | — |
 | `01_EDA_traditional_ml_aa_identity` | EDA over amino-acid-identity features | `data/processed/.../modeling_dataset.parquet` |
 | `02_traditional_ml_aa_identity_benchmark` | supervised AA-identity benchmark (uses raw amino acids only, no language model) | same |
+| `03a_assemble_physicochemical_features` | assemble physicochemical-descriptor features (substitution matrices, distances, property deltas) | modeling_dataset.parquet |
+| `03_EDA_physicochemical` | EDA over physicochemical features | physchem features |
+| `04_physicochemical_benchmark` | supervised physicochemical benchmark (the D027 no-language-model control); three-way comparison vs AA-identity and zero-shot | physchem features |
 | `05a_pllm_zeroshot_feature_extraction` | GPU feature extraction: ESM scores for all variants (run on Colab; committed for full reproducibility) | modeling_dataset.parquet |
 | `05_EDA_pllm_zeroshot` | EDA over zero-shot ESM scores | scores parquet (below) |
 | `06_pllm_zeroshot_benchmark` | zero-shot pLLM benchmark (the D027 no-training control) | scores parquet (below) |
