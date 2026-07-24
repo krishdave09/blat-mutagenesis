@@ -10,17 +10,19 @@ Raw data in data/raw/ is immutable; everything else is rebuilt by code.
 | `00_project_setup` | project scaffold | — |
 | `01_EDA_traditional_ml_aa_identity` | EDA over amino-acid-identity features | `data/processed/.../modeling_dataset.parquet` |
 | `02_traditional_ml_aa_identity_benchmark` | supervised AA-identity benchmark (uses raw amino acids only, no language model) | same |
+| `05a_pllm_zeroshot_feature_extraction` | GPU feature extraction: ESM scores for all variants (run on Colab; committed for full reproducibility) | modeling_dataset.parquet |
 | `05_EDA_pllm_zeroshot` | EDA over zero-shot ESM scores | scores parquet (below) |
 | `06_pllm_zeroshot_benchmark` | zero-shot pLLM benchmark (the D027 no-training control) | scores parquet (below) |
 
 ## Feature extraction (GPU / Colab)
 
 Notebooks `05`/`06` read the zero-shot ESM scores from
-`data/features/plm_masked_marginal/pllm_zeroshot_scores.parquet`. That parquet is produced by a
-**GPU extractor notebook** kept outside this repo (project convention: GPU steps run as Colab
-twins in `1.5 - Colab notebooks/`, not committed here):
+`data/features/plm_masked_marginal/pllm_zeroshot_scores.parquet`. That parquet is produced by the
+**feature-extraction notebook `notebooks/05a_pllm_zeroshot_feature_extraction.ipynb`**, committed
+in-repo for full reproducibility. It is GPU work, so a Colab-ready copy also lives in
+`1.5 - Colab notebooks/` for convenience:
 
-- **Extractor:** `1.5 - Colab notebooks/06_pllm_zeroshot_benchmark_colab.ipynb`
+- **Extractor:** `notebooks/05a_pllm_zeroshot_feature_extraction.ipynb` (in-repo) or the Colab copy `1.5 - Colab notebooks/05a_pllm_zeroshot_feature_extraction_colab.ipynb`
   (self-contained — the variant list is embedded; no upload needed).
 - **What it computes:** masked-marginal + wildtype-marginal substitution scores
   `log P(mut) − log P(wt)` at each mutated site, for the ESM ladder (ESM-1b, ESM-1v,
