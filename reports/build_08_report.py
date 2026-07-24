@@ -384,28 +384,34 @@ def main():
         "against real selective-plating outcomes.", S["body"]))
 
     # 6. Next steps
-    story.append(Paragraph("6. Next steps", S["h"]))
+    story.append(Paragraph("6. What supervising the pLLM buys us, and what it leads to next", S["h"]))
     story.append(Paragraph(
-        "<b>Feature fusion (immediate, data-ready).</b> This arm trains on embeddings alone. The natural "
-        "next model combines the zero-shot surprisal scalars (06, already on disk) and the site-level "
-        "score features (D032/D033: the full 20-way logit vector, mutant rank, margin, and per-position "
-        "entropy) with the embedding deltas used here, in one classifier under the identical three-split "
-        "battery. This directly answers the open question this arm raises (D039): is the embedding vector "
-        "<b>complementary to</b> or <b>redundant with</b> the scalar surprisal? It reuses this notebook's "
-        "in-fold PCA reducer and folds unchanged \u2014 the surprisal features already share the same 4,783 "
-        "single-mutant keys \u2014 so no new extraction is needed. If fusion beats embeddings-alone on the "
-        "contiguous split, the two feature families carry different signal; if it does not, the scalar "
-        "already captured it.", S["body"]))
+        "The arm turns on one sentence read off Table 2 \u2014 <b>when we supervise the pLLM, we get ___</b> "
+        "\u2014 and which word fills the blank decides the next experiment.", S["body"]))
     story.append(Paragraph(
-        "<b>Structural / ESMFold (D015/D038) \u2014 a separate regime.</b> The structural features "
+        "<b>If supervised-PLM beats zero-shot on the contiguous split</b> \u2014 then when we supervise the "
+        "pLLM we get <i>signal the frozen surprisal score missed</i>: the embedding carries functional "
+        "information the scalar log-likelihood-ratio discards, and training recovers it. <b>This leads us "
+        "to feature fusion next</b> \u2014 combine the zero-shot surprisal scalars (06, already on disk) and "
+        "the site-level score features (D032/D033: full 20-way logit vector, mutant rank, margin, "
+        "per-position entropy) <i>with</i> these embeddings in one classifier, under the identical "
+        "three-split battery and in-fold reducer, to measure how much the two feature families stack. They "
+        "share the same 4,783 single-mutant keys, so no new extraction is needed.", S["body"]))
+    story.append(Paragraph(
+        "<b>If supervised-PLM only matches zero-shot on the contiguous split</b> \u2014 then when we "
+        "supervise the pLLM we get <i>nothing the scalar surprisal did not already give us</i>: the "
+        "embedding complexity is not justified for this protein and fusion would be redundant. <b>This "
+        "leads us instead to change feature family</b> \u2014 to the ESMFold structural-epistasis features "
+        "(D015/D038), which is where a new signal would have to come from rather than from more "
+        "sequence-embedding machinery. Either reading points past single-mutant sequence features.", S["body"]))
+    story.append(Paragraph(
+        "<b>Structural / ESMFold (D015/D038) is a separate regime, not a drop-in.</b> Those features "
         "(\u0394pLDDT and predicted-structure perturbation of a double mutant relative to WT and to its "
         "constituent singles) are specifically for <b>double / combinatorial mutants</b> (Deng 2012), "
-        "where summed per-site sequence scores cannot represent how two substitutions interact. That is a "
-        "different data regime \u2014 it requires the double-mutant label set and a separate ESMFold "
-        "extraction \u2014 so it is its own arm on its own data, not a fourth feature block in this "
-        "single-mutant benchmark. Both feature-fusion and structural arms feed the wet-lab pAmpGent panel, "
-        "which is where the catalytic-but-stable blind spot is tested against biology rather than "
-        "held-out folds.", S["body"]))
+        "where summed per-site sequence scores cannot represent how two substitutions interact. It needs "
+        "the double-mutant label set and its own ESMFold extraction, so it is its own arm on its own data. "
+        "Both feature-fusion and structural arms feed the wet-lab pAmpGent panel, which is where the "
+        "catalytic-but-stable blind spot is tested against biology rather than held-out folds.", S["body"]))
 
     doc = SimpleDocTemplate(str(OUT), pagesize=letter,
         leftMargin=0.9*inch, rightMargin=0.9*inch, topMargin=0.9*inch, bottomMargin=0.8*inch,
