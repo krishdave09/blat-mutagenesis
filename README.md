@@ -9,9 +9,9 @@ Raw data in data/raw/ is immutable; everything else is rebuilt by code.
 |----------|--------------|-------|
 | `00_project_setup` | project scaffold | — |
 | `01_EDA_traditional_ml_aa_identity` | EDA over amino-acid-identity features | `data/processed/.../modeling_dataset.parquet` |
-| `02_traditional_ml_aa_identity_benchmark` | supervised AA-identity benchmark (no-LM control) | same |
+| `02_traditional_ml_aa_identity_benchmark` | supervised AA-identity benchmark (uses raw amino acids only, no language model) | same |
 | `03_EDA_pllm_zeroshot` | EDA over zero-shot ESM scores | scores parquet (below) |
-| `04_pllm_zeroshot_benchmark` | zero-shot pLLM benchmark (no-training control) | scores parquet (below) |
+| `04_pllm_zeroshot_benchmark` | zero-shot pLLM benchmark (the D027 no-training control) | scores parquet (below) |
 
 ## Feature extraction (GPU / Colab)
 
