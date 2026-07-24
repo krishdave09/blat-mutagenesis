@@ -10,25 +10,25 @@ Raw data in data/raw/ is immutable; everything else is rebuilt by code.
 | `00_project_setup` | project scaffold | — |
 | `01_EDA_traditional_ml_aa_identity` | EDA over amino-acid-identity features | `data/processed/.../modeling_dataset.parquet` |
 | `02_traditional_ml_aa_identity_benchmark` | supervised AA-identity benchmark (uses raw amino acids only, no language model) | same |
-| `03_EDA_pllm_zeroshot` | EDA over zero-shot ESM scores | scores parquet (below) |
-| `04_pllm_zeroshot_benchmark` | zero-shot pLLM benchmark (the D027 no-training control) | scores parquet (below) |
+| `05_EDA_pllm_zeroshot` | EDA over zero-shot ESM scores | scores parquet (below) |
+| `06_pllm_zeroshot_benchmark` | zero-shot pLLM benchmark (the D027 no-training control) | scores parquet (below) |
 
 ## Feature extraction (GPU / Colab)
 
-Notebooks `03`/`04` read the zero-shot ESM scores from
+Notebooks `05`/`06` read the zero-shot ESM scores from
 `data/features/plm_masked_marginal/pllm_zeroshot_scores.parquet`. That parquet is produced by a
 **GPU extractor notebook** kept outside this repo (project convention: GPU steps run as Colab
 twins in `1.5 - Colab notebooks/`, not committed here):
 
-- **Extractor:** `1.5 - Colab notebooks/04_pllm_zeroshot_benchmark_colab.ipynb`
+- **Extractor:** `1.5 - Colab notebooks/06_pllm_zeroshot_benchmark_colab.ipynb`
   (self-contained — the variant list is embedded; no upload needed).
 - **What it computes:** masked-marginal + wildtype-marginal substitution scores
   `log P(mut) − log P(wt)` at each mutated site, for the ESM ladder (ESM-1b, ESM-1v,
   ESM-2 150M/650M/3B, ESM-C 300M/600M).
 - **GPU:** the six ≤650M models fit a free Colab T4; ESM-2 3B wants an L4 (24 GB) / A100.
 - **To regenerate:** run that Colab notebook on a GPU runtime, download
-  `out/pllm_zeroshot_scores.parquet`, and drop it at the path above. Then run `03` and `04`.
+  `out/pllm_zeroshot_scores.parquet`, and drop it at the path above. Then run `05` and `06`.
 
 Scores are keyed by `seq_id` with one column per `{model}__{scheme}`
-(e.g. `esm2_650m__masked_marginal`). The report at `2 - Writing/build_04_report.py` renders the
-`04` results into a PDF matching the `00` format.
+(e.g. `esm2_650m__masked_marginal`). The report at `2 - Writing/build_06_report.py` renders the
+`06` results into a PDF matching the `00` format.
