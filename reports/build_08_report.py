@@ -383,6 +383,30 @@ def main():
         "(D015/D038, for the double mutants) and the wet-lab mutagenesis panel, which check predictions "
         "against real selective-plating outcomes.", S["body"]))
 
+    # 6. Next steps
+    story.append(Paragraph("6. Next steps", S["h"]))
+    story.append(Paragraph(
+        "<b>Feature fusion (immediate, data-ready).</b> This arm trains on embeddings alone. The natural "
+        "next model combines the zero-shot surprisal scalars (06, already on disk) and the site-level "
+        "score features (D032/D033: the full 20-way logit vector, mutant rank, margin, and per-position "
+        "entropy) with the embedding deltas used here, in one classifier under the identical three-split "
+        "battery. This directly answers the open question this arm raises (D039): is the embedding vector "
+        "<b>complementary to</b> or <b>redundant with</b> the scalar surprisal? It reuses this notebook's "
+        "in-fold PCA reducer and folds unchanged \u2014 the surprisal features already share the same 4,783 "
+        "single-mutant keys \u2014 so no new extraction is needed. If fusion beats embeddings-alone on the "
+        "contiguous split, the two feature families carry different signal; if it does not, the scalar "
+        "already captured it.", S["body"]))
+    story.append(Paragraph(
+        "<b>Structural / ESMFold (D015/D038) \u2014 a separate regime.</b> The structural features "
+        "(\u0394pLDDT and predicted-structure perturbation of a double mutant relative to WT and to its "
+        "constituent singles) are specifically for <b>double / combinatorial mutants</b> (Deng 2012), "
+        "where summed per-site sequence scores cannot represent how two substitutions interact. That is a "
+        "different data regime \u2014 it requires the double-mutant label set and a separate ESMFold "
+        "extraction \u2014 so it is its own arm on its own data, not a fourth feature block in this "
+        "single-mutant benchmark. Both feature-fusion and structural arms feed the wet-lab pAmpGent panel, "
+        "which is where the catalytic-but-stable blind spot is tested against biology rather than "
+        "held-out folds.", S["body"]))
+
     doc = SimpleDocTemplate(str(OUT), pagesize=letter,
         leftMargin=0.9*inch, rightMargin=0.9*inch, topMargin=0.9*inch, bottomMargin=0.8*inch,
         title="TEM-1 supervised pLLM benchmark")
